@@ -1,0 +1,7 @@
+image:
+  repository: gcr.io/jenkinsxio/jx-health
+  tag: 0.0.0
+  pullPolicy: IfNotPresent
+
+runInterval: 30s # The interval that Kuberhealthy will run your check on
+timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
