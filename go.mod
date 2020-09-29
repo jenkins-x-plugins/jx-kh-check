@@ -1,4 +1,4 @@
-module github.com/jenkins-x/jx-kcheck
+module github.com/jenkins-x-plugins/jx-khcheck
 
 go 1.14
 
