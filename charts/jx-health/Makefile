@@ -21,7 +21,7 @@ clean:
 
 release: clean
 	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
-	sed -i -e "s/tag:.*/tag: $(VERSION)/" charts/jx-health/values.yaml
+	sed -i -e "s/tag:.*/tag: $(VERSION)/" values.yaml
 
 	helm dependency build
 	helm lint
