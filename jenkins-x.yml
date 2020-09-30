@@ -55,7 +55,7 @@ pipelineConfig:
                 image: gcr.io/jenkinsxio/jx
               - name: upload-binaries
                 command: make goreleaser
-                image: gcr.io/jenkinsxio-labs/go-releaser
+                image: gcr.io/jenkinsxio/step-go-releaser
               - name: release-charts
                 image: gcr.io/jenkinsxio/jx-cli
                 command: make
