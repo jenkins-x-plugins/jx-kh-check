@@ -1,5 +1,5 @@
 FROM scratch
 
-ENTRYPOINT ["/jx-health"]
+ENTRYPOINT ["/jx-kh-check"]
 
-COPY ./build/linux/jx-health /jx-health
+COPY ./build/linux/jx-kh-check /jx-kh-check

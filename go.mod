@@ -1,10 +1,9 @@
-module github.com/jenkins-x-plugins/jx-health
+module github.com/jenkins-x-plugins/jx-kh-check
 
 go 1.14
 
 require (
 	github.com/Comcast/kuberhealthy/v2 v2.1.2
-	github.com/jenkins-x-plugins/jx-khcheck v0.0.2 // indirect
 	github.com/jenkins-x/jx-logging v0.0.3
 )
 

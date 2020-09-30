@@ -29,7 +29,7 @@ pipelineConfig:
                 command: make
                 args:
                   - build
-                dir: /workspace/source/charts/jx-health
+                dir: /workspace/source/charts/jx-kh-check
     release:
       pipeline:
         stages:
@@ -42,7 +42,7 @@ pipelineConfig:
                 image: golang:1.13
               - name: build-and-push-image
                 image: gcr.io/kaniko-project/executor
-                command: /kaniko/executor --cache=true --cache-dir=/workspace --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-health:$VERSION
+                command: /kaniko/executor --cache=true --cache-dir=/workspace --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-kh-check:$VERSION
                 env:
                 - name: NO_GOOGLE_APPLICATION_CREDENTIALS
                   value: "true"
@@ -61,4 +61,4 @@ pipelineConfig:
                 command: make
                 args:
                   - release
-                dir: /workspace/source/charts/jx-health
+                dir: /workspace/source/charts/jx-kh-check
