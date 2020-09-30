@@ -1,14 +1,11 @@
-module github.com/jenkins-x-plugins/jx-khcheck
+module github.com/jenkins-x-plugins/jx-health
 
 go 1.14
 
 require (
 	github.com/Comcast/kuberhealthy/v2 v2.1.2
+	github.com/jenkins-x-plugins/jx-khcheck v0.0.2 // indirect
 	github.com/jenkins-x/jx-logging v0.0.3
-	github.com/json-iterator/go v1.1.5 // indirect
-	github.com/spf13/pflag v1.0.3 // indirect
-	gopkg.in/inf.v0 v0.9.1 // indirect
-	k8s.io/client-go v10.0.0+incompatible // indirect
 )
 
 replace (
