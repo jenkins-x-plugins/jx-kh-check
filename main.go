@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/Comcast/kuberhealthy/v2/pkg/checks/external/checkclient"
-	"github.com/jenkins-x/jx-logging/pkg/log"
+	"github.com/jenkins-x/jx-logging/v3/pkg/log"
 )
 
 func main() {

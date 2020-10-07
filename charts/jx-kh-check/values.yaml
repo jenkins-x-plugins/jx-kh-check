@@ -1,5 +1,5 @@
 image:
-  repository: gcr.io/jenkinsxio/jx-health
+  repository: gcr.io/jenkinsxio/jx-kh-checks
   tag: 0.0.0
   pullPolicy: IfNotPresent
 
