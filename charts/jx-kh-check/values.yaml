@@ -1,6 +1,6 @@
 image:
-  repository: gcr.io/jenkinsxio/jx-kh-checks
-  tag: 0.0.0
+  repository: gcr.io/jenkinsxio/jx-kh-check
+  tag: 0.0.7
   pullPolicy: IfNotPresent
 
 runInterval: 30s # The interval that Kuberhealthy will run your check on
