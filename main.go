@@ -9,7 +9,7 @@ func main() {
 
 	log.Logger().Infof("starting Jenkins X health checks")
 
-	errors := []string{}
+	errors := []string{"TESTING: a bad thing happened", "and another!"}
 	// ingress
 
 	// tls
@@ -24,7 +24,7 @@ func main() {
 		}
 
 	} else {
-		err = checkclient.ReportFailure([]string{"a bad thing happened", "and another!"})
+		err = checkclient.ReportFailure(errors)
 		if err != nil {
 			log.Logger().Fatalf("failed to report failure status %v", err)
 		}
