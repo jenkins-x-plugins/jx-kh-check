@@ -22,6 +22,7 @@ debug
 
 #Various temporary created while building/running jx.
 /build/
+build/
 /release/
 dist/
 scanning/

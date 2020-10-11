@@ -1,0 +1,90 @@
+{{- if .Values.example.enabled }}
+---
+apiVersion: comcast.github.io/v1
+kind: KuberhealthyCheck
+metadata:
+  name: example
+  namespace: kuberhealthy
+spec:
+  runInterval: {{ .Values.example.runInterval }}
+  timeout: {{ .Values.example.timeout }}
+  podSpec:
+    containers:
+      - name: example
+        image: {{ .Values.example.image.repository }}:{{ .Values.example.image.tag }}
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: CHECK_example_REPLICAS
+            value: "4"
+          - name: CHECK_example_ROLLING_UPDATE
+            value: "true"
+        resources:
+          requests:
+            cpu: 25m
+            memory: 15Mi
+          limits:
+            cpu: 40m
+        restartPolicy: Never
+    serviceAccountName: example-sa
+    terminationGracePeriodSeconds: 60
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: example-check-rb
+  namespace: kuberhealthy
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: example-service-role
+subjects:
+  - kind: ServiceAccount
+    name: example-sa
+    namespace: kuberhealthy
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: example-service-role
+  namespace: kuberhealthy
+rules:
+  - apiGroups:
+      - "apps"
+    resources:
+      - examples
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: example-sa
+  namespace: kuberhealthy
+
+{{- end }}
