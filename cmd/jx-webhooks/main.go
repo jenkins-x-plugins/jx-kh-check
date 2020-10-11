@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -49,7 +50,7 @@ func main() {
 }
 
 func (o Options) findErrors() ([]string, error) {
-	kherrors := []string{""}
+	kherrors := []string{}
 
 	// lookup all source repositories and error if any do not have the webhook created annotation
 	sourceRepositories, err := o.jxClient.JenkinsV1().SourceRepositories(v1.NamespaceAll).List(context.TODO(), metav1.ListOptions{})
@@ -58,18 +59,21 @@ func (o Options) findErrors() ([]string, error) {
 	}
 
 	for _, sr := range sourceRepositories.Items {
-		if sr.Annotations != nil {
-			value := strings.ToLower(sr.Annotations["webhook.jenkins-x.io"])
-			if value == "true" {
-				continue
-			}
-			if value != "" {
-				message := sr.Annotations["webhook.jenkins-x.io/error"]
 
-				kherrors = append(kherrors, "no webhook registered for %s: %s", sr.Name, message)
-			}
+		value := strings.ToLower(sr.Annotations["webhook.jenkins-x.io"])
+		if value == "true" {
+			continue
+		}
+
+		message := sr.Annotations["webhook.jenkins-x.io/error"]
+
+		if message != "" {
+			kherrors = append(kherrors, fmt.Sprintf("no webhook registered for %s: %s", sr.Name, message))
+		} else {
+			kherrors = append(kherrors, fmt.Sprintf("no webhook registered for %s", sr.Name))
 		}
 	}
+
 	return kherrors, nil
 }
 
