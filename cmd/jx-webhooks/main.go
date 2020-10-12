@@ -11,7 +11,6 @@ import (
 	"github.com/jenkins-x/jx-api/v3/pkg/client/clientset/versioned"
 	"github.com/jenkins-x/jx-kube-client/v3/pkg/kubeclient"
 	"github.com/jenkins-x/jx-logging/v3/pkg/log"
-	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -23,10 +22,10 @@ func main() {
 
 	log.Logger().Infof("starting jx-webhooks health checks")
 
-	o := Options{}
-	err := o.Validate()
+	o, err := newOptions()
 	if err != nil {
 		log.Logger().Fatalf("failed to validate options: %v", err)
+		return
 	}
 
 	kherrors, err := o.findErrors()
@@ -52,8 +51,13 @@ func main() {
 func (o Options) findErrors() ([]string, error) {
 	kherrors := []string{}
 
+	namespace, err := kubeclient.CurrentNamespace()
+	if err != nil {
+		return kherrors, errors.Wrapf(err, "failed to find current namespace")
+	}
+
 	// lookup all source repositories and error if any do not have the webhook created annotation
-	sourceRepositories, err := o.jxClient.JenkinsV1().SourceRepositories(v1.NamespaceAll).List(context.TODO(), metav1.ListOptions{})
+	sourceRepositories, err := o.jxClient.JenkinsV1().SourceRepositories(namespace).List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return kherrors, errors.Wrapf(err, "failed to list source repositories")
 	}
@@ -77,8 +81,8 @@ func (o Options) findErrors() ([]string, error) {
 	return kherrors, nil
 }
 
-func (o Options) Validate() error {
-
+func newOptions() (*Options, error) {
+	o := Options{}
 	f := kubeclient.NewFactory()
 	cfg, err := f.CreateKubeConfig()
 	if err != nil {
@@ -92,5 +96,5 @@ func (o Options) Validate() error {
 		}
 	}
 
-	return nil
+	return &o, nil
 }

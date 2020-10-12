@@ -5,3 +5,11 @@ example:
     tag: 0.0.0
   runInterval: 30s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
+
+jxwebhook:
+  enabled: true
+  image:
+    repository: gcr.io/jenkinsxio/jx-webhook
+    tag: 0.0.0
+  runInterval: 90s # The interval that Kuberhealthy will run your check on
+  timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"

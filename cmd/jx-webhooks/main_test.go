@@ -1,8 +1,12 @@
 package main
 
 import (
+	"os"
+	"path/filepath"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
@@ -11,6 +15,9 @@ import (
 )
 
 func TestOptions_findErrors(t *testing.T) {
+	// getting the current namespace is found from a local kube config file
+	err := os.Setenv("KUBECONFIG", filepath.Join("test_data", "test-config"))
+	assert.NoError(t, err)
 
 	type fields struct {
 		sr *v1.SourceRepository
@@ -25,6 +32,7 @@ func TestOptions_findErrors(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:        "foo",
 				Annotations: map[string]string{"cheese": "wine"},
+				Namespace:   "cheese",
 			},
 		},
 		}, want: []string{"no webhook registered for foo"}, wantErr: false},
@@ -33,6 +41,7 @@ func TestOptions_findErrors(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:        "foo",
 				Annotations: map[string]string{"webhook.jenkins-x.io": "true"},
+				Namespace:   "cheese",
 			},
 		},
 		}, want: []string{}, wantErr: false},
@@ -41,6 +50,7 @@ func TestOptions_findErrors(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:        "foo",
 				Annotations: map[string]string{"webhook.jenkins-x.io": "false"},
+				Namespace:   "cheese",
 			},
 		},
 		}, want: []string{"no webhook registered for foo"}, wantErr: false},
@@ -49,6 +59,7 @@ func TestOptions_findErrors(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:        "foo",
 				Annotations: map[string]string{"webhook.jenkins-x.io": ""},
+				Namespace:   "cheese",
 			},
 		},
 		}, want: []string{"no webhook registered for foo"}, wantErr: false},
@@ -57,6 +68,7 @@ func TestOptions_findErrors(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:        "foo",
 				Annotations: map[string]string{"webhook.jenkins-x.io/error": "something bad happened"},
+				Namespace:   "cheese",
 			},
 		},
 		}, want: []string{"no webhook registered for foo: something bad happened"}, wantErr: false},

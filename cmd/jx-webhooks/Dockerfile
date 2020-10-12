@@ -1,3 +1,3 @@
 FROM scratch
-COPY build/jx-webhooks /
+COPY build/linux/jx-webhooks /
 ENTRYPOINT ["/jx-webhooks"]
