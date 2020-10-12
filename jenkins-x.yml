@@ -1,4 +1,4 @@
-buildPack: go-cli
+buildPack: none
 dockerRegistryOwner: jenkinsxio
 pipelineConfig:
   pipelines:
@@ -25,6 +25,10 @@ pipelineConfig:
                 command: make test
                 image: golang:1.15
                 dir: /workspace/source/cmd/jx-webhooks
+              - name: test-install
+                command: make test
+                image: golang:1.15
+                dir: /workspace/source/cmd/jx-install
               - name: charts
                 image: gcr.io/jenkinsxio/jx-cli
                 command: make
@@ -42,7 +46,7 @@ pipelineConfig:
                 command: make build
                 image: golang:1.15
                 dir: /workspace/source/cmd/jx-webhooks
-              - name: build-and-push-image
+              - name: build-and-push-webhooks
                 image: gcr.io/kaniko-project/executor
                 command: /kaniko/executor --cache=true --cache-dir=/workspace/source/cmd/jx-webhooks --context=/workspace/source/cmd/jx-webhooks --dockerfile=/workspace/source/cmd/jx-webhooks/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhooks:$VERSION
                 env:
@@ -52,6 +56,21 @@ pipelineConfig:
                   value: ""
                 - name: DOCKER_REGISTRY_ORG
                   value: jenkinsxio
+
+              - name: build-install
+                command: make build
+                image: golang:1.15
+                dir: /workspace/source/cmd/jx-install
+              - name: build-and-push-install
+                image: gcr.io/kaniko-project/executor
+                command: /kaniko/executor --context=/workspace/source/cmd/jx-install --dockerfile=/workspace/source/cmd/jx-install/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-install:$VERSION
+                env:
+                  - name: NO_GOOGLE_APPLICATION_CREDENTIALS
+                    value: "true"
+                  - name: GOOGLE_APPLICATION_CREDENTIALS
+                    value: ""
+                  - name: DOCKER_REGISTRY_ORG
+                    value: jenkinsxio
 
 
               - name: changelog
