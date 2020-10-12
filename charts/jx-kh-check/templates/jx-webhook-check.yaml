@@ -45,7 +45,7 @@ rules:
   - apiGroups:
       - "jenkins.io"
     resources:
-      - SourceRepositories
+      - sourcerepositories
     verbs:
       - get
       - list
