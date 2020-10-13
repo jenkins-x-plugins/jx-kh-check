@@ -30,3 +30,13 @@ jxBotToken:
   runInterval: 90s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   gitProvider:
+
+jxPodStatus:
+  enabled: true
+  image:
+    repository: gcr.io/jenkinsxio/jx-pod-status
+    tag: 0.0.0
+  runInterval: 5s # The interval that Kuberhealthy will run your check on
+  timeout: 15m # After this much time, Kuberhealthy will kill your check and consider it "failed"
+  cluster:
+    enabled: false
