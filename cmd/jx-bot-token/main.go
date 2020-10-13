@@ -75,15 +75,14 @@ func (o Options) findErrors() []string {
 
 	req, err := http.NewRequestWithContext(context.TODO(), "GET", checkURL, nil)
 	if err != nil {
-		return append(kherrors, fmt.Sprintf("failed to reach URL: %s", checkURL))
+		return append(kherrors, fmt.Sprintf("failed to create new request with URL: %s: %v", checkURL, err))
 	}
 
 	req.Header.Set("Authorization", fmt.Sprintf("token %s", oauthToken))
 
 	resp, err := o.httpClient.Do(req)
-
 	if err != nil {
-		return append(kherrors, fmt.Sprintf("failed to reach URL: %s", checkURL))
+		return append(kherrors, fmt.Sprintf("failed to reach URL: %s: %v", checkURL, err))
 	}
 
 	if resp == nil {
@@ -93,7 +92,7 @@ func (o Options) findErrors() []string {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return append(kherrors, fmt.Sprintf("failed to verify bot account with %s, response code %d", checkURL, resp.StatusCode))
+		return append(kherrors, fmt.Sprintf("failed to verify bot account with %s, response status %s code %d", checkURL, resp.Status, resp.StatusCode))
 	}
 
 	log.Logger().Infof("received %d", resp.StatusCode)
