@@ -38,7 +38,7 @@ func TestOptions_findErrors(t *testing.T) {
 	}{
 		{name: "unknown_git_provider", fields: fields{gitProvider: "https://foo.com"}, want: []string{"verifying bot token not yet supported for git provider https://foo.com"}},
 		{name: "github_ok", fields: fields{gitProvider: "https://github.com", responseCode: 200}, want: nil},
-		{name: "github_error", fields: fields{gitProvider: "https://github.com", responseCode: 401}, want: []string{"failed to verify bot account with https://api.github.com/user, response code 401"}},
+		{name: "github_error", fields: fields{gitProvider: "https://github.com", responseCode: 401}, want: []string{"failed to verify bot account with https://api.github.com/user, response status foo code 401"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -48,6 +48,7 @@ func TestOptions_findErrors(t *testing.T) {
 				// Test request parameters
 				return &http.Response{
 					StatusCode: tt.responseCode,
+					Status:     "foo",
 					// Send response to be tested
 					Body: ioutil.NopCloser(bytes.NewBufferString(`OK`)),
 					// Must be set to non-nil value or it panics
