@@ -10,7 +10,7 @@ spec:
   timeout: {{ .Values.jxBotToken.timeout }}
   podSpec:
     containers:
-      - name: jxBotToken
+      - name: jx-bot-token
         image: {{ .Values.jxBotToken.image.repository }}:{{ .Values.jxBotToken.image.tag }}
         resources:
           requests:
