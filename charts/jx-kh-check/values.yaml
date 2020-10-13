@@ -6,7 +6,7 @@ example:
   runInterval: 30s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
 
-jxwebhook:
+jxWebhook:
   enabled: true
   image:
     repository: gcr.io/jenkinsxio/jx-webhooks
@@ -14,10 +14,19 @@ jxwebhook:
   runInterval: 90s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
 
-jxinstall:
+jxInstall:
   enabled: true
   image:
     repository: gcr.io/jenkinsxio/jx-install
     tag: 0.0.0
   runInterval: 90s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
+
+jxBotToken:
+  enabled: true
+  image:
+    repository: gcr.io/jenkinsxio/jx-bot-token
+    tag: 0.0.0
+  runInterval: 90s # The interval that Kuberhealthy will run your check on
+  timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
+  gitProvider:

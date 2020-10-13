@@ -1,0 +1,31 @@
+{{- if .Values.jxBotToken.enabled }}
+---
+apiVersion: comcast.github.io/v1
+kind: KuberhealthyCheck
+metadata:
+  name: jx-bot-token
+  namespace: jx
+spec:
+  runInterval: {{ .Values.jxBotToken.runInterval }}
+  timeout: {{ .Values.jxBotToken.timeout }}
+  podSpec:
+    containers:
+      - name: jxBotToken
+        image: {{ .Values.jxBotToken.image.repository }}:{{ .Values.jxBotToken.image.tag }}
+        resources:
+          requests:
+            cpu: 25m
+            memory: 15Mi
+          limits:
+            cpu: 40m
+        restartPolicy: Never
+        env:
+        - name: OAUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: knative-git-user-pass
+        - name: GIT_PROVIDER
+          value: {{ .Values.jxBotToken.gitProvider }}
+    terminationGracePeriodSeconds: 60
+{{- end }}
