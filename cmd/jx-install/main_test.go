@@ -105,14 +105,14 @@ func TestOptions_checkBootJob(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "foo",
 				Namespace: "cheese",
-				Labels:    map[string]string{"app": "boot"},
+				Labels:    map[string]string{"app": "jx-boot"},
 			},
 		}}}, want: []string{"latest boot job foo has not started, it could be stuck"}},
 		{name: "boot_job_running_more_than_default_exceeded_time", fields: fields{objects: []runtime.Object{&batchv1.Job{
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "foo",
 				Namespace: "cheese",
-				Labels:    map[string]string{"app": "boot"},
+				Labels:    map[string]string{"app": "jx-boot"},
 			},
 			Status: batchv1.JobStatus{
 				StartTime: &currentTime,
@@ -122,7 +122,7 @@ func TestOptions_checkBootJob(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "foo",
 				Namespace: "cheese",
-				Labels:    map[string]string{"app": "boot"},
+				Labels:    map[string]string{"app": "jx-boot"},
 			},
 			Status: batchv1.JobStatus{
 				StartTime: &time10MinsAgo,
@@ -132,7 +132,7 @@ func TestOptions_checkBootJob(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "bar",
 				Namespace: "cheese",
-				Labels:    map[string]string{"app": "boot"},
+				Labels:    map[string]string{"app": "jx-boot"},
 			},
 			Status: batchv1.JobStatus{
 				StartTime: &time20MinsAgo,
@@ -143,7 +143,7 @@ func TestOptions_checkBootJob(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "foo",
 				Namespace: "cheese",
-				Labels:    map[string]string{"app": "boot"},
+				Labels:    map[string]string{"app": "jx-boot"},
 			},
 			Status: batchv1.JobStatus{
 				StartTime: &time20MinsAgo,
@@ -153,7 +153,7 @@ func TestOptions_checkBootJob(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "bar",
 				Namespace: "cheese",
-				Labels:    map[string]string{"app": "boot"},
+				Labels:    map[string]string{"app": "jx-boot"},
 			},
 			Status: batchv1.JobStatus{
 				StartTime: &time10MinsAgo,
@@ -164,7 +164,7 @@ func TestOptions_checkBootJob(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "foo",
 				Namespace: "cheese",
-				Labels:    map[string]string{"app": "boot"},
+				Labels:    map[string]string{"app": "jx-boot"},
 			},
 			Status: batchv1.JobStatus{
 				StartTime: &currentTime,
