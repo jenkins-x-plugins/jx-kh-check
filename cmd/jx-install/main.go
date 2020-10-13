@@ -106,7 +106,7 @@ func (o Options) checkBootJob(currentNamespace string) ([]string, error) {
 	var kherrors []string
 
 	jobs, err := o.client.BatchV1().Jobs(currentNamespace).List(context.TODO(), metav1.ListOptions{
-		LabelSelector: "app=boot",
+		LabelSelector: "app=jx-boot",
 	})
 
 	if err != nil {
