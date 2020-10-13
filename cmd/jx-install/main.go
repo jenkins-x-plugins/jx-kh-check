@@ -109,7 +109,12 @@ func (o Options) checkBootJob(currentNamespace string) ([]string, error) {
 		LabelSelector: "app=boot",
 	})
 
-	if err != nil || jobs == nil || len(jobs.Items) == 0 {
+	if err != nil {
+		// don't carry on if there are no boot jobs
+		return kherrors, errors.Wrapf(err, "failed to list jobs in namespace %s", currentNamespace)
+	}
+
+	if jobs == nil || len(jobs.Items) == 0 {
 		kherrors = append(kherrors, fmt.Sprintf("failed to find any boot jobs in namespace %s", currentNamespace))
 		// don't carry on if there are no boot jobs
 		return kherrors, nil
