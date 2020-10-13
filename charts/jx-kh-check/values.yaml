@@ -36,7 +36,17 @@ jxPodStatus:
   image:
     repository: gcr.io/jenkinsxio/jx-pod-status
     tag: 0.0.0
-  runInterval: 5s # The interval that Kuberhealthy will run your check on
+  runInterval: 5m # The interval that Kuberhealthy will run your check on
   timeout: 15m # After this much time, Kuberhealthy will kill your check and consider it "failed"
+  cluster:
+    enabled: false
+
+jxSecrets:
+  enabled: true
+  image:
+    repository: gcr.io/jenkinsxio/jx-secrets
+    tag: 0.0.0
+  runInterval: 60s # The interval that Kuberhealthy will run your check on
+  timeout: 5m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   cluster:
     enabled: false

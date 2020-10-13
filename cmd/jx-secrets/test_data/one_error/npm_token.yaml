@@ -1,0 +1,19 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  labels:
+    gitops.jenkins-x.io/pipeline: namespaces
+  name: jenkins-npm-token
+  namespace: test-jx
+spec:
+  backendType: gcpSecretsManager
+  data:
+    - key: tf-foo-jenkins-npm-token
+      name: token
+      version: latest
+  projectId: jenkins-x-foo
+  template:
+    type: Opaque
+status:
+  status: 'ERROR, 5 NOT_FOUND: Secret [projects/123/secrets/tf-foo-jenkins-npm-token]
+    not found or has no versions.'

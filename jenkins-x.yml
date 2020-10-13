@@ -33,6 +33,10 @@ pipelineConfig:
                 command: make test
                 image: golang:1.15
                 dir: /workspace/source/cmd/jx-bot-token
+              - name: test-secrets
+                command: make test
+                image: golang:1.15
+                dir: /workspace/source/cmd/jx-secrets
               - name: test-pod-status
                 command: make test
                 image: golang:1.15
@@ -102,6 +106,21 @@ pipelineConfig:
               - name: build-and-push-jx-pod-status
                 image: gcr.io/kaniko-project/executor
                 command: /kaniko/executor --context=/workspace/source/cmd/jx-pod-status --dockerfile=/workspace/source/cmd/jx-pod-status/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-pod-status:$VERSION
+                env:
+                  - name: NO_GOOGLE_APPLICATION_CREDENTIALS
+                    value: "true"
+                  - name: GOOGLE_APPLICATION_CREDENTIALS
+                    value: ""
+                  - name: DOCKER_REGISTRY_ORG
+                    value: jenkinsxio
+
+              - name: build-jx-secrets
+                command: make build
+                image: golang:1.15
+                dir: /workspace/source/cmd/jx-secrets
+              - name: build-and-push-jx-secrets
+                image: gcr.io/kaniko-project/executor
+                command: /kaniko/executor --context=/workspace/source/cmd/jx-secrets --dockerfile=/workspace/source/cmd/jx-secrets/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-secrets:$VERSION
                 env:
                   - name: NO_GOOGLE_APPLICATION_CREDENTIALS
                     value: "true"
