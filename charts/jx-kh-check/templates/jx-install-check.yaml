@@ -1,4 +1,4 @@
-{{- if .Values.jxinstall.enabled }}
+{{- if .Values.jxInstall.enabled }}
 ---
 apiVersion: comcast.github.io/v1
 kind: KuberhealthyCheck
@@ -6,12 +6,12 @@ metadata:
   name: jx-install
   namespace: jx-git-operator
 spec:
-  runInterval: {{ .Values.jxwebhook.runInterval }}
-  timeout: {{ .Values.jxinstall.timeout }}
+  runInterval: {{ .Values.jxInstall.runInterval }}
+  timeout: {{ .Values.jxInstall.timeout }}
   podSpec:
     containers:
-      - name: jxwebhook
-        image: {{ .Values.jxwebhook.image.repository }}:{{ .Values.jxwebhook.image.tag }}
+      - name: jx-install
+        image: {{ .Values.jxInstall.image.repository }}:{{ .Values.jxInstall.image.tag }}
         resources:
           requests:
             cpu: 25m
