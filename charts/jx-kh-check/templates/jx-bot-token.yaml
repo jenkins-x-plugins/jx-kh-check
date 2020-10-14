@@ -24,7 +24,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: password
-              name: knative-git-user-pass
+              name: tekton-git
         - name: GIT_PROVIDER
           value: {{ .Values.jxBotToken.gitProvider }}
     terminationGracePeriodSeconds: 60
