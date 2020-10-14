@@ -130,7 +130,10 @@ func (o Options) findErrors() ([]string, error) {
 		case pod.Status.Phase == v1.PodPending:
 			kherrors = append(kherrors, pod.Name+" is in pod status phase "+string(pod.Status.Phase)+" ")
 		case pod.Status.Phase == v1.PodFailed:
-			kherrors = append(kherrors, pod.Name+" is in pod status phase "+string(pod.Status.Phase)+" ")
+			// lets not report if this is a build pod because because failing builds have a pod failed status
+			if !isBuildPod(pod) {
+				kherrors = append(kherrors, pod.Name+" is in pod status phase "+string(pod.Status.Phase)+" ")
+			}
 		case pod.Status.Phase == v1.PodUnknown:
 			kherrors = append(kherrors, pod.Name+" is in pod status phase "+string(pod.Status.Phase)+" ")
 		default:
@@ -140,4 +143,17 @@ func (o Options) findErrors() ([]string, error) {
 
 	return kherrors, nil
 
+}
+
+func isBuildPod(pod v1.Pod) bool {
+	switch {
+	case pod.Labels["created-by-lighthouse"] == "true":
+		return true
+	case pod.Annotations["tekton.dev/ready"] != "READY":
+		return true
+	case pod.Labels["jenkins.io/pipelineType"] == "build":
+		return true
+	default:
+		return false
+	}
 }
