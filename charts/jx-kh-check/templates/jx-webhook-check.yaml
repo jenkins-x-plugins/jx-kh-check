@@ -1,4 +1,4 @@
-{{- if .Values.jxWebhook.enabled }}
+{{- if .Values.jxWebhooks.enabled }}
 ---
 apiVersion: comcast.github.io/v1
 kind: KuberhealthyCheck
@@ -6,12 +6,12 @@ metadata:
   name: jx-webhook
   namespace: jx
 spec:
-  runInterval: {{ .Values.jxWebhook.runInterval }}
-  timeout: {{ .Values.jxWebhook.timeout }}
+  runInterval: {{ .Values.jxWebhooks.runInterval }}
+  timeout: {{ .Values.jxWebhooks.timeout }}
   podSpec:
     containers:
       - name: jx-webhook
-        image: {{ .Values.jxWebhook.image.repository }}:{{ .Values.jxWebhook.image.tag }}
+        image: {{ .Values.jxWebhooks.image.repository }}:{{ .Values.jxWebhooks.image.tag }}
         resources:
           requests:
             cpu: 25m
