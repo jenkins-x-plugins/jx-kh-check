@@ -9,6 +9,34 @@ spec:
     trigger: "/test bot-check"
     rerun_command: "/retest"
     source: "bot-check-pullrequest.yaml"
+  - name: pr-install-check
+    context: "pr-install-check"
+    always_run: true
+    optional: false
+    trigger: "/test install-check"
+    rerun_command: "/retest"
+    source: "install-check-pullrequest.yaml"
+  - name: pr-pod-check
+    context: "pr-pod-check"
+    always_run: true
+    optional: false
+    trigger: "/test pod-check"
+    rerun_command: "/retest"
+    source: "pod-check-pullrequest.yaml"
+  - name: pr-webhook-check
+    context: "pr-webhook-check"
+    always_run: true
+    optional: false
+    trigger: "/test webhook-check"
+    rerun_command: "/retest"
+    source: "webhook-check-pullrequest.yaml"
+  - name: pr-secrets-check
+    context: "pr-secrets-check"
+    always_run: true
+    optional: false
+    trigger: "/test secrets-check"
+    rerun_command: "/retest"
+    source: "secrets-check-pullrequest.yaml"
   postsubmits:
   - name: release
     context: "release"
