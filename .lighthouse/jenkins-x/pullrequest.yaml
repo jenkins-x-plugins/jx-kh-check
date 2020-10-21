@@ -157,8 +157,6 @@ spec:
             value: $(params.REPO_OWNER)
           - name: REPO_URL
             value: $(params.REPO_URL)
-          - name: CHECK_NAME
-            value: jx-pod-status
           name: ""
           resources:
             requests:
@@ -196,7 +194,7 @@ spec:
           resources: {}
 
         - args:
-          - cd cmd/$CHECK_NAME && make test
+          - cd cmd/$JOB_NAME && make test
           command:
           - /bin/sh
           - -c
@@ -205,7 +203,7 @@ spec:
           resources: {}
 
         - args:
-            - cd cmd/$CHECK_NAME && make build
+            - cd cmd/$JOB_NAME && make build
           command:
             - /bin/sh
             - -c
@@ -216,9 +214,9 @@ spec:
         - args:
           - source .jx/variables.sh && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson
             /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS
-            --context=/workspace/source/cmd/$CHECK_NAME
-            --dockerfile=/workspace/source/cmd/$CHECK_NAME/${DOCKERFILE_PATH:-Dockerfile}
-            --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$CHECK_NAME:$VERSION
+            --context=/workspace/source/cmd/$JOB_NAME
+            --dockerfile=/workspace/source/cmd/$JOB_NAME/${DOCKERFILE_PATH:-Dockerfile}
+            --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$JOB_NAME:$VERSION
 
           command:
           - /busybox/sh

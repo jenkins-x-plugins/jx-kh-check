@@ -200,28 +200,13 @@ spec:
           resources: {}
         - args:
           - -c
-          - echo disabled
-          command:
-          - /bin/sh
-          image: gcr.io/jenkinsxio-labs-private/jxl:0.0.136
-          name: helm-template
-          resources: {}
-        - args:
-          - -c
           - jx step tag --version $(cat VERSION)
           command:
           - /bin/sh
           image: gcr.io/jenkinsxio/builder-go
           name: tag-version
           resources: {}
-        - args:
-          - '[ -d /builder/home ] || mkdir -p /builder && ln -s /tekton/home /builder/home'
-          command:
-          - /bin/sh
-          - -c
-          image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
-          name: setup-builder-home
-          resources: {}
+
         - args:
           - gitops
           - variables
@@ -230,25 +215,113 @@ spec:
           image: gcr.io/jenkinsxio/jx-cli:latest
           name: jx-variables
           resources: {}
+
+
         - args:
-          - source .jx/variables.sh && make release
+            - source .jx/variables.sh && cd cmd/jx-bot-token && make build
           command:
-          - /bin/bash
-          - -c
+            - /bin/bash
+            - -c
           image: golang:1.15
-          name: release-binary
+          name: build-bot-token
           resources: {}
         - args:
-          - source .jx/variables.sh && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson
-            /kaniko/.docker/config.json && /kaniko/executor --cache=true --cache-dir=/workspace
-            --context=/workspace/source --dockerfile=/workspace/source/Dockerfile
-            --destination=gcr.io/$DOCKER_REGISTRY_ORG/$REPO_NAME:$VERSION --cache-repo=gcr.io/jx-labs-infra/cache
+            - source .jx/variables.sh && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson
+              /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS
+              --context=/workspace/source/cmd/jx-bot-token
+              --dockerfile=/workspace/source/cmd/jx-bot-token/${DOCKERFILE_PATH:-Dockerfile}
+              --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/jx-bot-token:$VERSION
           command:
-          - /busybox/sh
-          - -c
+            - /busybox/sh
+            - -c
           image: gcr.io/kaniko-project/executor:debug-9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
-          name: build-and-push-image
+          name: build-and-push-bot-token
           resources: {}
+
+        - args:
+            - source .jx/variables.sh && cd cmd/jx-install && make build
+          command:
+            - /bin/bash
+            - -c
+          image: golang:1.15
+          name: build-install
+          resources: {}
+        - args:
+            - source .jx/variables.sh && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson
+              /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS
+              --context=/workspace/source/cmd/jx-install
+              --dockerfile=/workspace/source/cmd/jx-install/${DOCKERFILE_PATH:-Dockerfile}
+              --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/jx-install:$VERSION
+          command:
+            - /busybox/sh
+            - -c
+          image: gcr.io/kaniko-project/executor:debug-9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+          name: build-and-push-install
+          resources: {}
+
+        - args:
+            - source .jx/variables.sh && cd cmd/jx-pod-status && make build
+          command:
+            - /bin/bash
+            - -c
+          image: golang:1.15
+          name: build-pod-status
+          resources: {}
+        - args:
+            - source .jx/variables.sh && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson
+              /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS
+              --context=/workspace/source/cmd/jx-pod-status
+              --dockerfile=/workspace/source/cmd/jx-pod-status/${DOCKERFILE_PATH:-Dockerfile}
+              --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/jx-pod-status:$VERSION
+          command:
+            - /busybox/sh
+            - -c
+          image: gcr.io/kaniko-project/executor:debug-9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+          name: build-and-push-pod-status
+          resources: {}
+
+        - args:
+            - source .jx/variables.sh && cd cmd/jx-secrets && make build
+          command:
+            - /bin/bash
+            - -c
+          image: golang:1.15
+          name: build-secrets
+          resources: {}
+        - args:
+            - source .jx/variables.sh && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson
+              /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS
+              --context=/workspace/source/cmd/jx-secrets
+              --dockerfile=/workspace/source/cmd/jx-secrets/${DOCKERFILE_PATH:-Dockerfile}
+              --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/jx-secrets:$VERSION
+          command:
+            - /busybox/sh
+            - -c
+          image: gcr.io/kaniko-project/executor:debug-9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+          name: build-and-push-secrets
+          resources: {}
+
+        - args:
+            - source .jx/variables.sh && cd cmd/jx-webhooks && make build
+          command:
+            - /bin/bash
+            - -c
+          image: golang:1.15
+          name: build-webhooks
+          resources: {}
+        - args:
+            - source .jx/variables.sh && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson
+              /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS
+              --context=/workspace/source/cmd/jx-webhooks
+              --dockerfile=/workspace/source/cmd/jx-webhooks/${DOCKERFILE_PATH:-Dockerfile}
+              --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/jx-webhooks:$VERSION
+          command:
+            - /busybox/sh
+            - -c
+          image: gcr.io/kaniko-project/executor:debug-9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+          name: build-and-push-webhooks
+          resources: {}
+
         - args:
           - 'if [ -d "/workspace/source/charts/$REPO_NAME" ]; then cd /workspace/source/charts/$REPO_NAME
             && helm-docs; else echo no charts; fi'
@@ -278,22 +351,14 @@ spec:
           image: gcr.io/jenkinsxio/builder-go:2.1.142-761
           name: changelog
           resources: {}
-        - args:
-          - source .jx/variables.sh && make goreleaser
-          command:
-          - /bin/bash
-          - -c
-          image: gcr.io/jenkinsxio/step-go-releaser:0.0.14
-          name: upload-binaries
-          resources: {}
-        - args:
-          - source .jx/variables.sh && ./promote.sh
-          command:
-          - /bin/bash
-          - -c
-          image: gcr.io/jenkinsxio/builder-go:2.1.142-761
-          name: promote-release
-          resources: {}
+#        - args:
+#          - source .jx/variables.sh && ./promote.sh
+#          command:
+#          - /bin/bash
+#          - -c
+#          image: gcr.io/jenkinsxio/builder-go:2.1.142-761
+#          name: promote-release
+#          resources: {}
         volumes:
         - downwardAPI:
             items:
