@@ -1,0 +1,51 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  annotations:
+    lighthouse.jenkins-x.io/prependStepsURL: https://raw.githubusercontent.com/jenkins-x/jx3-pipeline-catalog/4a22dee8a67f66e5012729808de081d2f4d0e715/tasks/git-clone/git-clone.yaml
+  labels:
+    jenkins.io/pipelineType: build
+  name: jx-kh-chuck
+spec:
+  pipelineSpec:
+    tasks:
+    - name: from-build-pack
+      resources: {}
+      taskSpec:
+        stepTemplate:
+          name: ""
+          resources:
+            requests:
+              cpu: 400m
+              memory: 600Mi
+          volumeMounts:
+          - mountPath: /etc/podinfo
+            name: podinfo
+            readOnly: true
+          workingDir: /workspace/source
+        steps:
+        - image: gcr.io/jenkinsxio/jx-cli:latest
+          name: jx-variables
+          resources: {}
+          script: |
+            #!/usr/bin/env bash
+            jx gitops variables
+
+        - image: rawlingsj80/chuck:0.0.2-wip
+          name: chuck
+
+        volumes:
+        - emptyDir: {}
+          name: workspace-volume
+        - downwardAPI:
+            items:
+            - fieldRef:
+                fieldPath: metadata.labels
+              path: labels
+          name: podinfo
+  podTemplate:
+    ImagePullSecrets: null
+    hostNetwork: false
+    schedulerName: ""
+  serviceAccountName: tekton-bot
+  timeout: 1h0m0s
