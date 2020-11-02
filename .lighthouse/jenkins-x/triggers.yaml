@@ -39,11 +39,10 @@ spec:
     source: "pullrequest.yaml"
   - name: chuck
     context: "chuck"
-    always_run: true
+    always_run: false
     optional: false
-    # skip_report: true
+    skip_report: true
     trigger: "/chuck"
-    rerun_command: "/chuck again"
     source: "chuck.yaml"
   postsubmits:
   - name: release
