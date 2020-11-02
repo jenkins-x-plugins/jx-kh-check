@@ -37,6 +37,13 @@ spec:
     trigger: "/test webhooks-check"
     rerun_command: "/retest"
     source: "pullrequest.yaml"
+  - name: chuck
+    context: "chuck"
+    always_run: true
+    optional: true
+    skip_report: true
+    trigger: "/chuck"
+    source: "chuck.yaml"
   postsubmits:
   - name: release
     context: "release"
