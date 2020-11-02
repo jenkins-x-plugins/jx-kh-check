@@ -40,7 +40,7 @@ spec:
   - name: chuck
     context: "chuck"
     always_run: false
-    optional: true
+    optional: false
     skip_report: true
     trigger: "/chuck"
     rerun_command: "/chuck"
