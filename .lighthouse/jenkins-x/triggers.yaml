@@ -43,7 +43,7 @@ spec:
     optional: false
     skip_report: true
     trigger: "/chuck"
-    rerun_command: "/chuck"
+    rerun_command: "/chuck again"
     source: "chuck.yaml"
   postsubmits:
   - name: release
