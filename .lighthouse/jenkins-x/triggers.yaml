@@ -39,11 +39,12 @@ spec:
   #   source: "pullrequest.yaml"
   - name: chuck
     context: "chuck"
-    always_run: true
+    always_run: false
     optional: false
-    skip_report: false
-    trigger: "/chuck me"
+    skip_report: true
+    # trigger: "/chuck me"
     # trigger: "/lh-chuck"
+    trigger: "/jx chuck"
     source: "chuck.yaml"
   # postsubmits:
   # - name: release
@@ -52,3 +53,6 @@ spec:
   #   branches:
   #   - main
   #   - master
+
+  
+
