@@ -39,7 +39,7 @@ spec:
     source: "pullrequest.yaml"
   - name: chuck
     context: "chuck"
-    always_run: false
+    always_run: true
     optional: false
     skip_report: true
     trigger: "/chuck"
