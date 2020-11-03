@@ -43,6 +43,7 @@ spec:
     optional: false
     skip_report: false
     trigger: "/chuck me"
+    # trigger: "/lh-chuck"
     source: "chuck.yaml"
   # postsubmits:
   # - name: release
