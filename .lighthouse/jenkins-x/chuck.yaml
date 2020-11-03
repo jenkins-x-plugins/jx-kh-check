@@ -24,12 +24,6 @@ spec:
             readOnly: true
           workingDir: /workspace/source
         steps:
-        # - image: gcr.io/jenkinsxio/jx-cli:latest
-        #   name: jx-variables
-        #   resources: {}
-        #   script: |
-        #     #!/usr/bin/env bash
-        #     jx gitops variables
 
         - image: rawlingsj80/chuck:0.0.2-wip
           name: chuck
@@ -44,7 +38,6 @@ spec:
               path: labels
           name: podinfo
   podTemplate:
-    ImagePullSecrets: null
     hostNetwork: false
     schedulerName: ""
   serviceAccountName: tekton-bot
