@@ -9,36 +9,15 @@ metadata:
 spec:
   pipelineSpec:
     tasks:
-    - name: from-build-pack
-      resources: {}
+    - name: chuck-it
       taskSpec:
-        stepTemplate:
-          name: ""
+        steps:
+        - image: rawlingsj80/chuck:0.0.2
+          name: chuck
           resources:
             requests:
-              cpu: 400m
-              memory: 600Mi
-          volumeMounts:
-          - mountPath: /etc/podinfo
-            name: podinfo
-            readOnly: true
+              cpu: 100m
+              memory: 200Mi
           workingDir: /workspace/source
-        steps:
-
-        - image: rawlingsj80/chuck:0.0.2-wip
-          name: chuck
-
-        volumes:
-        - emptyDir: {}
-          name: workspace-volume
-        - downwardAPI:
-            items:
-            - fieldRef:
-                fieldPath: metadata.labels
-              path: labels
-          name: podinfo
-  podTemplate:
-    hostNetwork: false
-    schedulerName: ""
   serviceAccountName: tekton-bot
-  timeout: 1h0m0s
+  timeout: 0h20m0s
