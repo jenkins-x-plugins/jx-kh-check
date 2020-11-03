@@ -2,52 +2,52 @@ apiVersion: config.lighthouse.jenkins-x.io/v1alpha1
 kind: TriggerConfig
 spec:
   presubmits:
-  - name: jx-bot-token
-    context: "pr-bot-check"
-    always_run: true
-    optional: false
-    trigger: "/test bot-check"
-    rerun_command: "/retest"
-    source: "pullrequest.yaml"
-  - name: jx-install
-    context: "pr-install-check"
-    always_run: true
-    optional: false
-    trigger: "/test install-check"
-    rerun_command: "/retest"
-    source: "pullrequest.yaml"
-  - name: jx-pod-status
-    context: "pr-pod-check"
-    always_run: true
-    optional: false
-    trigger: "/test pod-check"
-    rerun_command: "/retest"
-    source: "pullrequest.yaml"
-  - name: jx-secrets
-    context: "pr-secrets-check"
-    always_run: true
-    optional: false
-    trigger: "/test secrets-check"
-    rerun_command: "/retest"
-    source: "pullrequest.yaml"
-  - name: jx-webhooks
-    context: "pr-webhooks-check"
-    always_run: true
-    optional: false
-    trigger: "/test webhooks-check"
-    rerun_command: "/retest"
-    source: "pullrequest.yaml"
+  # - name: jx-bot-token
+  #   context: "pr-bot-check"
+  #   always_run: true
+  #   optional: false
+  #   trigger: "/test bot-check"
+  #   rerun_command: "/retest"
+  #   source: "pullrequest.yaml"
+  # - name: jx-install
+  #   context: "pr-install-check"
+  #   always_run: true
+  #   optional: false
+  #   trigger: "/test install-check"
+  #   rerun_command: "/retest"
+  #   source: "pullrequest.yaml"
+  # - name: jx-pod-status
+  #   context: "pr-pod-check"
+  #   always_run: true
+  #   optional: false
+  #   trigger: "/test pod-check"
+  #   rerun_command: "/retest"
+  #   source: "pullrequest.yaml"
+  # - name: jx-secrets
+  #   context: "pr-secrets-check"
+  #   always_run: true
+  #   optional: false
+  #   trigger: "/test secrets-check"
+  #   rerun_command: "/retest"
+  #   source: "pullrequest.yaml"
+  # - name: jx-webhooks
+  #   context: "pr-webhooks-check"
+  #   always_run: true
+  #   optional: false
+  #   trigger: "/test webhooks-check"
+  #   rerun_command: "/retest"
+  #   source: "pullrequest.yaml"
   - name: chuck
     context: "chuck"
-    always_run: false
+    always_run: true
     optional: false
-    skip_report: true
-    trigger: "/lh-chuck"
+    skip_report: false
+    trigger: "/chuck me"
     source: "chuck.yaml"
-  postsubmits:
-  - name: release
-    context: "release"
-    source: "release.yaml"
-    branches:
-    - main
-    - master
+  # postsubmits:
+  # - name: release
+  #   context: "release"
+  #   source: "release.yaml"
+  #   branches:
+  #   - main
+  #   - master
