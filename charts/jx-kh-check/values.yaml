@@ -27,7 +27,7 @@ jxBotToken:
   image:
     repository: gcr.io/jenkinsxio/jx-bot-token
     tag: 0.0.0
-  runInterval: 90s # The interval that Kuberhealthy will run your check on
+  runInterval: 5m # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   gitProvider:
 
