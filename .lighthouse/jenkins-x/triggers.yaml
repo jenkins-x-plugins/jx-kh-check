@@ -49,8 +49,5 @@ spec:
     context: "release"
     source: "release.yaml"
     branches:
-    - main
-    - master
-
-  
-
+    - ^main$
+    - ^master$
