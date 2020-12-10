@@ -95,7 +95,7 @@ func (o *Options) findErrors() ([]string, error) {
 		}
 	}
 	if len(endpoints) == 0 {
-		kherrors = append(kherrors, fmt.Sprintf("no webhooks endpoints found with service name %s endpoints found in namespace %s", o.serviceName, namespace))
+		kherrors = append(kherrors, fmt.Sprintf("no webhook endpoints found with service name: %s in namespace %s", o.serviceName, namespace))
 		return kherrors, nil
 	}
 
@@ -119,6 +119,10 @@ func (o *Options) findLocalMetricEndpoints(namespace string) ([]string, error) {
 		for _, a := range ep.Addresses {
 			if a.Hostname != "" {
 				host = a.Hostname
+				break
+			}
+			if a.IP != "" {
+				host = a.IP
 				break
 			}
 		}
