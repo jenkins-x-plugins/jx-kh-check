@@ -44,13 +44,12 @@ spec:
             source .jx/variables.sh
             cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
 
-            declare -a names=("jx-bot-token" "jx-install" "jx-pod-status" "jx-secrets" "jx-webhook-events" "jx-webhooks")
-            for i in "${arr[@]}"
-            do
-              echo "building: $i"
-              cd /workspace/source/cmd/$i
-              /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/$i --dockerfile=Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/$i:$VERSION
-            done
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-bot-token --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-bot-token:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-install --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-install:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-pod-status --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-pod-status:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-secrets --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-secrets:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhooks --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhooks:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhook-events --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhook-events:$VERSION
         - image: jnorwood/helm-docs:v1.4.0
           name: chart-docs
           resources: {}
