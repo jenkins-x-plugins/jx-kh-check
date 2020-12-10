@@ -43,7 +43,15 @@ spec:
             #!/busybox/sh
             source .jx/variables.sh
             cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/$REPO_NAME:$VERSION
+
+            declare -a names=("jx-bot-token" "jx-install" "jx-pod-status" "jx-secrets" "jx-webhook-events" "jx-webhooks")
+
+            for i in "${arr[@]}"
+            do
+              echo "building: $i"
+              cd /workspace/source/cmd/$
+              /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/$ --dockerfile=Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/$i:$VERSION
+            done
         - image: jnorwood/helm-docs:v1.4.0
           name: chart-docs
           resources: {}
