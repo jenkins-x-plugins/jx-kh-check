@@ -36,7 +36,7 @@ spec:
           resources: {}
           script: |
             #!/bin/sh
-            cd cmd/$JOB_NAME && echo "building and running tests in: $(pwd) && make build test
+            cd cmd/$JOB_NAME && echo "building and running tests" && pwd && make build test
         - image: gcr.io/kaniko-project/executor:debug-v1.3.0
           name: build-container-build
           resources: {}
