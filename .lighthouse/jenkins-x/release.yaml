@@ -49,7 +49,7 @@ spec:
             /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-pod-status --dockerfile=/workspace/source/cmd/jx-pod-status/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-pod-status:$VERSION
             /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-secrets --dockerfile=/workspace/source/cmd/jx-secrets/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-secrets:$VERSION
             /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhooks --dockerfile=/workspace/source/cmd/jx-webhooks/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhooks:$VERSION
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhook-events --dockerfile=/workspace/source/cmd/x-webhook-events/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhook-events:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhook-events --dockerfile=/workspace/source/cmd/jx-webhook-events/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhook-events:$VERSION
         - image: jnorwood/helm-docs:v1.4.0
           name: chart-docs
           resources: {}
