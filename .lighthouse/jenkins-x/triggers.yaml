@@ -37,6 +37,13 @@ spec:
     trigger: "/test webhooks-check"
     rerun_command: "/retest"
     source: "pullrequest.yaml"
+  - name: jx-webhook-events
+    context: "pr-webhook-events-check"
+    always_run: true
+    optional: false
+    trigger: "/test webhook-events-check"
+    rerun_command: "/retest"
+    source: "pullrequest.yaml"
   - name: chuck
     context: "chuck"
     always_run: false
