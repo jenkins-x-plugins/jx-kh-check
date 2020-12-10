@@ -3,7 +3,7 @@
 release: test
 
 .PHONY: linux
-linux: test
+linux:
 
 .PHONY: test
 test:
