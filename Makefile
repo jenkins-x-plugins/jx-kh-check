@@ -5,6 +5,9 @@ release: test
 .PHONY: linux
 linux:
 
+.PHONY: goreleaser
+linux:
+
 .PHONY: test
 test:
 	cd cmd/jx-bot-token; make build test

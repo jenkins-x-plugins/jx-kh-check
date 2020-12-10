@@ -15,7 +15,7 @@ jxWebhooks:
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
 
 jxWebhookEvents:
-  enabled: false
+  enabled: true
   image:
     repository: gcr.io/jenkinsxio/jx-webhook-events
     tag: 0.0.0
