@@ -1,3 +1,3 @@
-# jx-webhooks-events
+# jx-webhook-events
 
 Verifies webhooks events have been received by lighthouse - which indicates valid ingress is being used by lighthouse.

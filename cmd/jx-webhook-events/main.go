@@ -32,7 +32,7 @@ type Options struct {
 }
 
 func main() {
-	log.Logger().Infof("starting jx-webhooks-events health checks")
+	log.Logger().Infof("starting jx-webhook-events health checks")
 
 	o, err := newOptions()
 	if err != nil {

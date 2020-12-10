@@ -1,3 +1,3 @@
 FROM scratch
-COPY build/jx-webhooks /
-ENTRYPOINT ["/jx-webhooks-events"]
+COPY build/jx-webhook-events /
+ENTRYPOINT ["/jx-webhook-events"]
