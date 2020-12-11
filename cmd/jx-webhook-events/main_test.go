@@ -81,6 +81,7 @@ func TestOptions_findErrors(t *testing.T) {
 			o := Options{
 				client:    client,
 				namespace: ns,
+				port:      port,
 			}
 			got, err := o.findErrors()
 			if tt.wantErr {
