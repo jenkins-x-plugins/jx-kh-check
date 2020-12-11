@@ -1,40 +1,40 @@
 example:
   enabled: false
   image:
-    repository: gcr.io/jenkinsxio/example
-    tag: 0.0.0
+    repository: gcr.io/jenkinsxio/jx-kh-check
+    tag: 0.0.56
   runInterval: 30s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
 
 jxWebhooks:
   enabled: false
   image:
-    repository: gcr.io/jenkinsxio/jx-webhooks
-    tag: 0.0.0
+    repository: gcr.io/jenkinsxio/jx-kh-check
+    tag: 0.0.56
   runInterval: 90s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
 
 jxWebhookEvents:
   enabled: false
   image:
-    repository: gcr.io/jenkinsxio/jx-webhook-events
-    tag: 0.0.0
+    repository: gcr.io/jenkinsxio/jx-kh-check
+    tag: 0.0.56
   runInterval: 5m # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
 
 jxInstall:
   enabled: false
   image:
-    repository: gcr.io/jenkinsxio/jx-install
-    tag: 0.0.0
+    repository: gcr.io/jenkinsxio/jx-kh-check
+    tag: 0.0.56
   runInterval: 90s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
 
 jxBotToken:
   enabled: false
   image:
-    repository: gcr.io/jenkinsxio/jx-bot-token
-    tag: 0.0.0
+    repository: gcr.io/jenkinsxio/jx-kh-check
+    tag: 0.0.56
   runInterval: 5m # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   gitProvider:
@@ -42,8 +42,8 @@ jxBotToken:
 jxPodStatus:
   enabled: false
   image:
-    repository: gcr.io/jenkinsxio/jx-pod-status
-    tag: 0.0.0
+    repository: gcr.io/jenkinsxio/jx-kh-check
+    tag: 0.0.56
   runInterval: 5m # The interval that Kuberhealthy will run your check on
   timeout: 15m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   cluster:
@@ -52,8 +52,8 @@ jxPodStatus:
 jxSecrets:
   enabled: false
   image:
-    repository: gcr.io/jenkinsxio/jx-secrets
-    tag: 0.0.0
+    repository: gcr.io/jenkinsxio/jx-kh-check
+    tag: 0.0.56
   runInterval: 60s # The interval that Kuberhealthy will run your check on
   timeout: 5m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   cluster:
