@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/Comcast/kuberhealthy/v2/pkg/checks/external/checkclient"
@@ -28,6 +30,7 @@ type Options struct {
 	namespace         string
 	serviceName       string
 	metricPath        string
+	port              string
 	totalWebHookCount int64
 }
 
@@ -67,8 +70,8 @@ func (o *Options) findErrors() ([]string, error) {
 	if o.serviceName == "" {
 		o.serviceName = "hook"
 	}
-	if o.metricPath == "" {
-		o.metricPath = "/Metrics"
+	if o.port == "" {
+		o.port = "2112"
 	}
 	namespace := o.namespace
 	if namespace == "" {
@@ -115,7 +118,7 @@ func (o *Options) findLocalMetricEndpoints(namespace string) ([]string, error) {
 	var answer []string
 	for _, ep := range eps.Subsets {
 		host := ""
-		port := 0
+		port := o.port
 		for _, a := range ep.Addresses {
 			if a.Hostname != "" {
 				host = a.Hostname
@@ -126,14 +129,19 @@ func (o *Options) findLocalMetricEndpoints(namespace string) ([]string, error) {
 				break
 			}
 		}
-		for _, p := range ep.Ports {
-			if p.Port > 0 {
-				port = int(p.Port)
-				break
+		if port == "" {
+			for _, p := range ep.Ports {
+				if p.Port > 0 {
+					port = strconv.Itoa(int(p.Port))
+					break
+				}
 			}
 		}
-		if host != "" && port > 0 {
-			answer = append(answer, fmt.Sprintf("http://%s:%d%s", host, port, o.metricPath))
+		if host != "" && port != "" {
+			if o.metricPath != "" && !strings.HasPrefix(o.metricPath, "/") {
+				o.metricPath = "/" + o.metricPath
+			}
+			answer = append(answer, fmt.Sprintf("http://%s:%s%s", host, port, o.metricPath))
 		}
 	}
 	return answer, nil

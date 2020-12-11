@@ -5,6 +5,8 @@ kind: KuberhealthyCheck
 metadata:
   name: jx-install
   namespace: jx-git-operator
+  annotations:
+    docs.jenkins-x.io: https://jenkins-x.io/v3/admin/troubleshooting/install/
 spec:
   runInterval: {{ .Values.jxInstall.runInterval }}
   timeout: {{ .Values.jxInstall.timeout }}

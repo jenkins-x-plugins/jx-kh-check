@@ -5,6 +5,8 @@ kind: KuberhealthyCheck
 metadata:
   name: jx-bot-token
   namespace: jx
+  annotations:
+    docs.jenkins-x.io: https://jenkins-x.io/v3/admin/troubleshooting/bot-token/
 spec:
   runInterval: {{ .Values.jxBotToken.runInterval }}
   timeout: {{ .Values.jxBotToken.timeout }}
