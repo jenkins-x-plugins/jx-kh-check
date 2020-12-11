@@ -5,6 +5,8 @@ kind: KuberhealthyCheck
 metadata:
   name: jx-webhook
   namespace: jx
+  annotations:
+    docs.jenkins-x.io: https://jenkins-x.io/v3/admin/troubleshooting/webhooks/
 spec:
   runInterval: {{ .Values.jxWebhooks.runInterval }}
   timeout: {{ .Values.jxWebhooks.timeout }}

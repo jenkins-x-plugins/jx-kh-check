@@ -6,7 +6,7 @@ metadata:
   name: jx-webhook-events
   namespace: jx
   annotations:
-    docs.jenkins-x.io: https://jenkins-x.io/v3/admin/
+    docs.jenkins-x.io: https://jenkins-x.io/v3/admin/troubleshooting/webhooks/
 spec:
   runInterval: {{ .Values.jxWebhookEvents.runInterval }}
   timeout: {{ .Values.jxWebhookEvents.timeout }}
