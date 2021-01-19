@@ -6,43 +6,31 @@ spec:
     context: "pr-bot-check"
     always_run: true
     optional: false
-    trigger: "/test bot-check"
-    rerun_command: "/retest"
     source: "pullrequest.yaml"
   - name: jx-install
     context: "pr-install-check"
     always_run: true
     optional: false
-    trigger: "/test install-check"
-    rerun_command: "/retest"
     source: "pullrequest.yaml"
   - name: jx-pod-status
     context: "pr-pod-check"
     always_run: true
     optional: false
-    trigger: "/test pod-check"
-    rerun_command: "/retest"
     source: "pullrequest.yaml"
   - name: jx-secrets
     context: "pr-secrets-check"
     always_run: true
     optional: false
-    trigger: "/test secrets-check"
-    rerun_command: "/retest"
     source: "pullrequest.yaml"
   - name: jx-webhooks
     context: "pr-webhooks-check"
     always_run: true
     optional: false
-    trigger: "/test webhooks-check"
-    rerun_command: "/retest"
     source: "pullrequest.yaml"
   - name: jx-webhook-events
     context: "pr-webhook-events-check"
     always_run: true
     optional: false
-    trigger: "/test webhook-events-check"
-    rerun_command: "/retest"
     source: "pullrequest.yaml"
   - name: chuck
     context: "chuck"
