@@ -10,7 +10,6 @@ import (
 
 	"github.com/jenkins-x/jx-logging/v3/pkg/log"
 	"github.com/jenkins-x/jx-secret/pkg/extsecrets"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const envVarTargetNamespace = "TARGET_NAMESPACE"
@@ -59,19 +58,22 @@ func (o Options) findErrors() ([]string, error) {
 	}
 
 	// lookup all source repositories and error if any do not have the webhook created annotation
-	externalSecrets, err := o.client.List(namespace, metav1.ListOptions{})
+	externalSecrets, err := o.client.List(namespace)
 	if err != nil {
 		return kherrors, errors.Wrapf(err, "failed to list external secrets")
 	}
 
 	for _, es := range externalSecrets {
+		// ignore external secrets with no status
+		if es.Status == nil {
+			continue
+		}
 		if es.Status.Status == "SUCCESS" {
 			continue
 		}
 
 		kherrors = append(kherrors, es.Status.Status)
 	}
-
 	return kherrors, nil
 }
 
