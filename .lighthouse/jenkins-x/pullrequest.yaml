@@ -1,8 +1,6 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  annotations:
-    lighthouse.jenkins-x.io/prependStepsURL: https://raw.githubusercontent.com/jenkins-x/jx3-pipeline-catalog/005e78cf69b643862344397a635736a51dd1bd89/tasks/git-clone/git-clone-pr.yaml
   name: pullrequest
 spec:
   pipelineSpec:
@@ -12,19 +10,17 @@ spec:
       taskSpec:
         metadata: {}
         stepTemplate:
-          name: ""
+          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/go-plugin/pullrequest.yaml@versionStream
           resources:
             requests:
               cpu: 400m
               memory: 600Mi
           workingDir: /workspace/source
         steps:
-        - image: gcr.io/jenkinsxio/jx-boot:3.0.773
-          name: jx-variables
+        - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@versionStream
+          name: ""
+        - name: jx-variables
           resources: {}
-          script: |
-            #!/usr/bin/env sh
-            jx gitops variables
         - image: golang:1.15
           name: build-make-linux
           resources: {}
