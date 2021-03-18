@@ -1,0 +1,106 @@
+{{- if .Capabilities.APIVersions.Has "jenkins.io/v1/Release" }}
+apiVersion: jenkins.io/v1
+kind: Release
+metadata:
+  creationTimestamp: "2021-03-18T12:36:23Z"
+  deletionTimestamp: null
+  name: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+spec:
+  commits:
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      chore: fix pipeline
+    sha: 378681035bb263590f2f7e2b7942bf5a207ef1e7
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      fix: upgrade pipelines
+    sha: 29b662cb1223a9771aa5c954da923b7917a268b8
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      chore: fix trigger
+    sha: 7d4fe8872a6340a419a64143d1c3d070482b0a1f
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      chore: fix trigger
+    sha: ac6a16840816ed11cd48a5e77f8e836fa3a0e809
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      chore: update deps
+    sha: 6faca8d2a74647bd310582849068f2d4e0139075
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      fix: avoid core dumping if an ExternalSecret has no status
+    sha: 62235f89371d168ba41de759f62ee6d08432d748
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      fix: add documentation annotations
+    sha: 9b1013758e1104a31a66a0abea7b22b923921440
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    message: |
+      fix: use port 2112
+    sha: be7d7a7103289d906315718db5f11e738cc37d4c
+  - author:
+      email: james.strachan@gmail.com
+      name: James Strachan
+    branch: master
+    committer:
+      email: noreply@github.com
+      name: GitHub
+    message: 'fix: triggers'
+    sha: 2ebdfe773db8ac437d2be8ecac6f76c4a764a4ec
+  gitHttpUrl: https://github.com/jenkins-x-plugins/jx-kh-check
+  gitOwner: jenkins-x-plugins
+  gitRepository: jx-kh-check
+  name: '{{ .Chart.Name }}'
+  version: 0.0.57
+status: {}
+ 
+{{- end }}
