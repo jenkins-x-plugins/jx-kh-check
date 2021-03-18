@@ -11,7 +11,6 @@ import (
 	"github.com/jenkins-x/jx-secret/pkg/extsecrets/testsecrets"
 	"github.com/stretchr/testify/require"
 	"k8s.io/apimachinery/pkg/runtime"
-	dynfake "k8s.io/client-go/dynamic/fake"
 )
 
 func TestOptions_findErrors(t *testing.T) {
@@ -38,7 +37,7 @@ func TestOptions_findErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			dynObjects := testsecrets.LoadExtSecretDir(t, "cheese", filepath.Join("test_data", tt.name))
-			fakeDynClient := dynfake.NewSimpleDynamicClient(scheme, dynObjects...)
+			fakeDynClient := testsecrets.NewFakeDynClient(scheme, dynObjects...)
 			o.client, err = extsecrets.NewClient(fakeDynClient)
 			require.NoError(t, err, "failed to create fake extsecrets Client")
 
