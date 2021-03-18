@@ -46,8 +46,8 @@ spec:
           resources: {}
         - name: changelog
           resources: {}
-        - name: upload-binaries
-          resources: {}
+#        - name: upload-binaries
+#          resources: {}
         - name: promote-release
           resources: {}
   podTemplate: {}
