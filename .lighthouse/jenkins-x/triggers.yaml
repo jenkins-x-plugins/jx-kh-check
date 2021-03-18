@@ -3,37 +3,37 @@ kind: TriggerConfig
 spec:
   presubmits:
   - name: jx-bot-token
-    context: "pr-bot-check"
+    context: jx-bot-token
     always_run: true
     optional: false
     source: "pullrequest.yaml"
   - name: jx-install
-    context: "pr-install-check"
+    context: jx-install
     always_run: true
     optional: false
     source: "pullrequest.yaml"
   - name: jx-pod-status
-    context: "pr-pod-check"
+    context: jx-pod-status
     always_run: true
     optional: false
     source: "pullrequest.yaml"
   - name: jx-secrets
-    context: "pr-secrets-check"
+    context: jx-secrets
     always_run: true
     optional: false
     source: "pullrequest.yaml"
   - name: jx-webhooks
-    context: "pr-webhooks-check"
+    context: jx-webhooks
     always_run: true
     optional: false
     source: "pullrequest.yaml"
   - name: jx-webhook-events
-    context: "pr-webhook-events-check"
+    context: jx-webhook-events
     always_run: true
     optional: false
     source: "pullrequest.yaml"
   - name: chuck
-    context: "chuck"
+    context:  chuck
     always_run: false
     optional: false
     skip_report: true
