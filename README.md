@@ -11,3 +11,5 @@ Custom health checkers for Jenkins X to be used by kuberhealthy
 # Build
 
 Built with Go 1.15
+
+foo
