@@ -1,6 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
+  creationTimestamp: null
   name: release
 spec:
   pipelineSpec:
@@ -11,12 +12,31 @@ spec:
         metadata: {}
         stepTemplate:
           image: uses:jenkins-x/jx3-pipeline-catalog/tasks/go-plugin/release.yaml@versionStream
+          name: ""
+          resources: {}
           workingDir: /workspace/source
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
+          name: ""
           resources: {}
-        - name: next-version
+        - image: rawlingsj80/jx-release-version:wip2
+          name: next-version
           resources: {}
+          script: |
+            #!/usr/bin/env sh
+            # sleep infinity
+            jx-release-version --tag > VERSION
+          env:
+          - name: GIT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: tekton-git
+                key: password
+          - name: GIT_USER
+            valueFrom:
+              secretKeyRef:
+                name: tekton-git
+                key: username
         - name: jx-variables
           resources: {}
         - image: golang:1.15
@@ -46,8 +66,6 @@ spec:
           resources: {}
         - name: changelog
           resources: {}
-#        - name: upload-binaries
-#          resources: {}
         - name: promote-release
           resources: {}
   podTemplate: {}
