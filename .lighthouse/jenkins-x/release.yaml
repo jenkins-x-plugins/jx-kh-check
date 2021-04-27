@@ -59,6 +59,7 @@ spec:
             /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-secrets --dockerfile=/workspace/source/cmd/jx-secrets/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-secrets:$VERSION
             /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhooks --dockerfile=/workspace/source/cmd/jx-webhooks/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhooks:$VERSION
             /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhook-events --dockerfile=/workspace/source/cmd/jx-webhook-events/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhook-events:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/pod-restarts-check --dockerfile=/workspace/source/cmd/pod-restarts-check/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/pod-restarts-check:$VERSION
         - name: chart-docs
           resources: {}
         - name: release-chart
