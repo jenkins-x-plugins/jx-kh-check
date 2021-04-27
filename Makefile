@@ -16,3 +16,4 @@ test:
 	cd cmd/jx-secrets; make build test
 	cd cmd/jx-webhook-events; make build test
 	cd cmd/jx-webhooks; make build test
+	cd cmd/pod-restarts-check; make build test
