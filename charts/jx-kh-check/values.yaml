@@ -50,6 +50,16 @@ jxPodStatus:
     enabled: false
 
 # the upstream uses a check indentation so keeping it here for this check so we dont need to change the helm template
+# When enabled equals to true, runAsUser and fsGroup will be
+# included to all khchecks as specified below.
+securityContext:
+  enabled: true # if enabled is set to false, securityContext settings will not be applied at all in checker pod custom resources
+  runAsNonRoot: true
+  runAsUser: 999
+  fsGroup: 999
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+
 check:
   podRestarts:
     enabled: false
