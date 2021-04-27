@@ -128,16 +128,16 @@ func (o Options) findErrors() ([]string, error) {
 		case pod.Status.Phase == v1.PodSucceeded:
 			continue
 		case pod.Status.Phase == v1.PodPending:
-			kherrors = append(kherrors, pod.Name+" is in pod status phase "+string(pod.Status.Phase)+" ")
+			kherrors = append(kherrors, "pod: "+pod.Name+" in namespace: "+pod.Namespace+" is in pod status phase "+string(pod.Status.Phase)+" ")
 		case pod.Status.Phase == v1.PodFailed:
 			// lets not report if this is a build pod because because failing builds have a pod failed status
 			if !isBuildPod(pod) {
-				kherrors = append(kherrors, pod.Name+" is in pod status phase "+string(pod.Status.Phase)+" ")
+				kherrors = append(kherrors, "pod: "+pod.Name+" in namespace: "+pod.Namespace+" is in pod status phase "+string(pod.Status.Phase)+" ")
 			}
 		case pod.Status.Phase == v1.PodUnknown:
-			kherrors = append(kherrors, pod.Name+" is in pod status phase "+string(pod.Status.Phase)+" ")
+			kherrors = append(kherrors, "pod: "+pod.Name+" in namespace: "+pod.Namespace+" is in pod status phase "+string(pod.Status.Phase)+" ")
 		default:
-			log.Logger().Info(pod.Name + " is not in one of the five possible pod status phases " + string(pod.Status.Phase) + " ")
+			log.Logger().Info("pod: "+pod.Name+" in namespace: "+pod.Namespace+" is not in one of the five possible pod status phases " + string(pod.Status.Phase) + " ")
 		}
 	}
 

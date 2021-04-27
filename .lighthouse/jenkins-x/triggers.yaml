@@ -32,6 +32,11 @@ spec:
     always_run: true
     optional: false
     source: "pullrequest.yaml"
+  - name: pod-restarts-check
+    context: pod-restarts-check
+    always_run: true
+    optional: false
+    source: "pullrequest.yaml"
   - name: chuck
     context:  chuck
     always_run: false
