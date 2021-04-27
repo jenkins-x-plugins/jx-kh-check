@@ -49,6 +49,27 @@ jxPodStatus:
   cluster:
     enabled: false
 
+podRestarts:
+  enabled: false
+  runInterval: 5m
+  timeout: 10m
+  image:
+    repository: gcr.io/jenkinsxio/pod-restarts-check
+    tag: 0.0.0
+  allNamespaces: true
+  extraEnvs:
+    MAX_FAILURES_ALLOWED: "10"
+  nodeSelector: {}
+  tolerations: []
+  #- key: "key"
+  #  operator: "Equal"
+  #  value: "value"
+  #  effect: "NoSchedule"
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+
 jxSecrets:
   enabled: false
   image:
