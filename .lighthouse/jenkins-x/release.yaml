@@ -47,9 +47,9 @@ spec:
             /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/pod-restarts-check --dockerfile=/workspace/source/cmd/pod-restarts-check/Dockerfile --destination=ghcr.io/jenkins-x/pod-restarts-check:$VERSION
         - name: chart-docs
           resources: {}
-        - name: release-chart
-          resources: {}
         - name: changelog
+          resources: {}
+        - name: release-chart
           resources: {}
         - name: promote-release
           resources: {}
