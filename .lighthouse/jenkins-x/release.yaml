@@ -19,23 +19,8 @@ spec:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
           name: ""
           resources: {}
-        - image: rawlingsj80/jx-release-version:wip2
-          name: next-version
+        - name: next-version
           resources: {}
-          script: |
-            #!/usr/bin/env sh
-            jx-release-version --tag > VERSION
-          env:
-          - name: GIT_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: tekton-git
-                key: password
-          - name: GIT_USER
-            valueFrom:
-              secretKeyRef:
-                name: tekton-git
-                key: username
         - name: jx-variables
           resources: {}
         - image: golang:1.15
@@ -53,13 +38,13 @@ spec:
             source .jx/variables.sh
             cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
 
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-bot-token --dockerfile=/workspace/source/cmd/jx-bot-token/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-bot-token:$VERSION
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-install --dockerfile=/workspace/source/cmd/jx-install/Dockerfile  --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-install:$VERSION
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-pod-status --dockerfile=/workspace/source/cmd/jx-pod-status/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-pod-status:$VERSION
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-secrets --dockerfile=/workspace/source/cmd/jx-secrets/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-secrets:$VERSION
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhooks --dockerfile=/workspace/source/cmd/jx-webhooks/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhooks:$VERSION
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhook-events --dockerfile=/workspace/source/cmd/jx-webhook-events/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/jx-webhook-events:$VERSION
-            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/pod-restarts-check --dockerfile=/workspace/source/cmd/pod-restarts-check/Dockerfile --destination=gcr.io/$DOCKER_REGISTRY_ORG/pod-restarts-check:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-bot-token --dockerfile=/workspace/source/cmd/jx-bot-token/Dockerfile --destination=ghcr.io/jenkins-x/jx-bot-token:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-install --dockerfile=/workspace/source/cmd/jx-install/Dockerfile  --destination=ghcr.io/jenkins-x/jx-install:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-pod-status --dockerfile=/workspace/source/cmd/jx-pod-status/Dockerfile --destination=ghcr.io/jenkins-x/jx-pod-status:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-secrets --dockerfile=/workspace/source/cmd/jx-secrets/Dockerfile --destination=ghcr.io/jenkins-x/jx-secrets:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhooks --dockerfile=/workspace/source/cmd/jx-webhooks/Dockerfile --destination=ghcr.io/jenkins-x/jx-webhooks:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/jx-webhook-events --dockerfile=/workspace/source/cmd/jx-webhook-events/Dockerfile --destination=ghcr.io/jenkins-x/jx-webhook-events:$VERSION
+            /kaniko/executor $KANIKO_FLAGS --context=/workspace/source/cmd/pod-restarts-check --dockerfile=/workspace/source/cmd/pod-restarts-check/Dockerfile --destination=ghcr.io/jenkins-x/pod-restarts-check:$VERSION
         - name: chart-docs
           resources: {}
         - name: release-chart
