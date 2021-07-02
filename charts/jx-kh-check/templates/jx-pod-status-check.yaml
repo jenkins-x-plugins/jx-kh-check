@@ -22,7 +22,7 @@ spec:
               fieldRef:
                 fieldPath: metadata.namespace
           {{- end }}
-        image: {{ .Values.jxPodStatus.image.repository }}:{{ .Values.jxPodStatus.image.tag }}
+        image: {{ .Values.jxPodStatus.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: IfNotPresent
         name: main
         resources:

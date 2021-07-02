@@ -13,7 +13,7 @@ spec:
   podSpec:
     containers:
       - name: jx-install
-        image: {{ .Values.jxInstall.image.repository }}:{{ .Values.jxInstall.image.tag }}
+        image: {{ .Values.jxInstall.image.repository }}:{{ .Values.image.tag }}
         resources:
           requests:
             cpu: 25m

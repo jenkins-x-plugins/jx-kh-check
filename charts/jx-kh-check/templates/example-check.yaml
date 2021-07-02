@@ -11,7 +11,7 @@ spec:
   podSpec:
     containers:
       - name: example
-        image: {{ .Values.example.image.repository }}:{{ .Values.example.image.tag }}
+        image: {{ .Values.example.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: IfNotPresent
         env:
           - name: CHECK_example_REPLICAS

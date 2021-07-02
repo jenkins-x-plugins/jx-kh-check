@@ -13,7 +13,7 @@ spec:
   podSpec:
     containers:
       - name: jx-webhook
-        image: {{ .Values.jxWebhooks.image.repository }}:{{ .Values.jxWebhooks.image.tag }}
+        image: {{ .Values.jxWebhooks.image.repository }}:{{ .Values.image.tag }}
         resources:
           requests:
             cpu: 25m

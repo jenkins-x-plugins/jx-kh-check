@@ -13,7 +13,7 @@ spec:
   podSpec:
     containers:
       - name: jx-bot-token
-        image: {{ .Values.jxBotToken.image.repository }}:{{ .Values.jxBotToken.image.tag }}
+        image: {{ .Values.jxBotToken.image.repository }}:{{ .Values.image.tag }}
         resources:
           requests:
             cpu: 25m
