@@ -52,7 +52,7 @@ spec:
         - image: ghcr.io/jenkins-x/jx-boot:3.2.153
           name: commit
           script: |
-            #!/bin/bash
+            #!/usr/bin/env sh
             source .jx/variables.sh
             git add * || true
             git add * || true
