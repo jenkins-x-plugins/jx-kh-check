@@ -1,34 +1,30 @@
-image:    
-  tag: 0.0.0
-
+image:
+  tag: 0.0.78
+  repository: ghcr.io/jenkins-x/jx-kh-check
 example:
   enabled: false
   image:
     repository: ghcr.io/jenkins-x/example
   runInterval: 30s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
-
 jxWebhooks:
   enabled: false
   image:
     repository: ghcr.io/jenkins-x/jx-webhooks
   runInterval: 90s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
-
 jxWebhookEvents:
   enabled: false
   image:
     repository: ghcr.io/jenkins-x/jx-webhook-events
   runInterval: 5m # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
-
 jxInstall:
   enabled: false
   image:
     repository: ghcr.io/jenkins-x/jx-install
   runInterval: 90s # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
-
 jxBotToken:
   enabled: false
   image:
@@ -36,7 +32,6 @@ jxBotToken:
   runInterval: 5m # The interval that Kuberhealthy will run your check on
   timeout: 2m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   gitProvider:
-
 jxPodStatus:
   enabled: false
   image:
@@ -45,7 +40,6 @@ jxPodStatus:
   timeout: 15m # After this much time, Kuberhealthy will kill your check and consider it "failed"
   cluster:
     enabled: false
-
 # the upstream uses a check indentation so keeping it here for this check so we dont need to change the helm template
 # When enabled equals to true, runAsUser and fsGroup will be
 # included to all khchecks as specified below.
@@ -56,7 +50,6 @@ securityContext:
   fsGroup: 999
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: true
-
 check:
   podRestarts:
     enabled: false
@@ -77,7 +70,6 @@ check:
       requests:
         cpu: 10m
         memory: 50Mi
-
 jxSecrets:
   enabled: false
   image:
