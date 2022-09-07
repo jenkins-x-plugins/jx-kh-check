@@ -9,6 +9,7 @@ spec:
   runInterval: {{ .Values.example.runInterval }}
   timeout: {{ .Values.example.timeout }}
   podSpec:
+    restartPolicy: Never
     containers:
       - name: example
         image: {{ .Values.example.image.repository }}:{{ .Values.image.tag }}
@@ -24,7 +25,6 @@ spec:
             memory: 15Mi
           limits:
             cpu: 40m
-        restartPolicy: Never
     serviceAccountName: example-sa
     terminationGracePeriodSeconds: 60
 ---
