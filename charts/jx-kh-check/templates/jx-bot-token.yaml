@@ -11,6 +11,7 @@ spec:
   runInterval: {{ .Values.jxBotToken.runInterval }}
   timeout: {{ .Values.jxBotToken.timeout }}
   podSpec:
+    restartPolicy: Never  
     containers:
       - name: jx-bot-token
         image: {{ .Values.jxBotToken.image.repository }}:{{ .Values.image.tag }}
@@ -19,8 +20,7 @@ spec:
             cpu: 25m
             memory: 15Mi
           limits:
-            cpu: 40m
-        restartPolicy: Never
+            cpu: 100m
         env:
         - name: OAUTH_TOKEN
           valueFrom:

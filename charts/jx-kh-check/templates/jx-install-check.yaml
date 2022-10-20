@@ -11,6 +11,7 @@ spec:
   runInterval: {{ .Values.jxInstall.runInterval }}
   timeout: {{ .Values.jxInstall.timeout }}
   podSpec:
+    restartPolicy: Never  
     containers:
       - name: jx-install
         image: {{ .Values.jxInstall.image.repository }}:{{ .Values.image.tag }}
@@ -19,8 +20,7 @@ spec:
             cpu: 25m
             memory: 15Mi
           limits:
-            cpu: 40m
-        restartPolicy: Never
+            cpu: 100m
     serviceAccountName: jx-install-sa
     terminationGracePeriodSeconds: 60
 ---
